@@ -1,0 +1,14 @@
+- hosts: all
+  sudo: yes
+  remote_user: kypros
+  vars:
+    username: sharedfiles 
+  tasks:
+    - name: add user
+      user: name={{ username }} shell=/bin/bash
+    - name: install minimum packages
+      apt: update_cache=yes
+      apt: upgrade=safe
+      apt: name=tmux state=latest
+      apt: name=zsh  state=latest
+      apt: name=git  state=latest
