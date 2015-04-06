@@ -12,3 +12,33 @@
       apt: name=tmux state=latest
       apt: name=zsh  state=latest
       apt: name=git  state=latest
+    - name: td-agent - get gpg key 
+      sudo: no
+      get_url: url=http://packages.treasuredata.com/GPG-KEY-td-agent dest=GPG-KEY-td-agent
+    - name: td-agent - add-key
+      shell: apt-key add GPG-KEY-td-agent
+    - name: td-agent - add repo
+      apt_repository: repo='deb [arch=amd64] http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib' state=present
+    - name: td-agent - apt-get update 
+      apt: update_cache=yes
+    - name: td-agent - apt-get install 
+      apt: name=td-agent force=yes state=latest
+    - name: increment soft limit for fluentd 
+      lineinfile: dest=/etc/security/limits.conf 
+                  insertbefore='# End of file'
+                  line='root            soft    nofile          65536'
+                  state=present
+    - name: increment hard limit for fluentd 
+      lineinfile: dest=/etc/security/limits.conf 
+                  insertbefore='# End of file'
+                  line='root            hard    nofile          65536'
+                  state=present
+    - name: influx db - get deb file
+      sudo: no
+      get_url: url=http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb dest=influxdb_latest_amd64.deb mode=0440
+    - name: influx db - install deb file 
+      apt: deb=influxdb_latest_amd64.deb
+    - name: influx db - enable and start
+      service: name=influxdb enabled=yes state=started
+    - name: influx db - add td-agent plugin
+      shell: td-agent-gem install fluent-plugin-influxdb
