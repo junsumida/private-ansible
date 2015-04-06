@@ -1,0 +1,13 @@
+- hosts: all
+  sudo: yes
+  remote_user: kypros 
+  vars:
+  tasks:
+    - name: install minimum packages
+      apt: update_cache=yes
+      apt: upgrade=safe
+      apt: name=tmux  state=latest
+      apt: name=zsh   state=latest
+      apt: name=git   state=latest
+      apt: name=whois state=latest
+
