@@ -1,0 +1,6 @@
+[kypros]
+192.168.11.6
+
+[kypros:vars]
+ansible_ssh_port=48322
+ansible_ssh_user=kypros
