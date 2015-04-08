@@ -41,6 +41,9 @@
     - name: influx db - enable and start
       service: name=influxdb enabled=yes state=started
     - name: grafana - get deb
+      sudo: no
       get_url: url=http://grafanarel.s3.amazonaws.com/builds/grafana_2.0.0-beta1_amd64.deb dest=grafana_2.0.0-beta1_amd64.deb mode=0440
     - name: grafana - install
       apt: deb=grafana_2.0.0-beta1_amd64.deb
+    - name: grafana - enable and start
+      service: name=grafana enabled=yes state=started
