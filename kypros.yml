@@ -1,8 +1,12 @@
 - hosts: all
   sudo: yes
   remote_user: kypros
+  roles:
+    - williamyeh.prometheus
   vars:
     username: sharedfiles 
+    prometheus_components: ["prometheus", "alertmanager", "node_exporter"]
+    prometheus_alertmanager_url: "http://localhost:9093/"
   tasks:
     - name: add user
       user: name={{ username }} shell=/bin/bash
