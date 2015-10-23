@@ -33,17 +33,21 @@
                   insertbefore='# End of file'
                   line='root            hard    nofile          65536'
                   state=present
-    - name: influx db - get deb file
-      sudo: no
-      get_url: url=http://s3.amazonaws.com/influxdb/influxdb_latest_amd64.deb dest=influxdb_latest_amd64.deb mode=0440
-    - name: influx db - install deb file 
-      apt: deb=influxdb_latest_amd64.deb
-    - name: influx db - enable and start
-      service: name=influxdb enabled=yes state=started
-    - name: grafana - get deb
-      sudo: no
-      get_url: url=http://grafanarel.s3.amazonaws.com/builds/grafana_2.0.0-beta1_amd64.deb dest=grafana_2.0.0-beta1_amd64.deb mode=0440
-    - name: grafana - install
-      apt: deb=grafana_2.0.0-beta1_amd64.deb
-    - name: grafana - enable and start
-      service: name=grafana enabled=yes state=started
+#    - name: influx db - get deb file
+#      get_url: url=https://s3.amazonaws.com/influxdb/influxdb_0.9.4.2_amd64.deb dest=influxdb_0.9.4.2_amd64.deb mode=0644
+#    - name: influx db - install deb file 
+#      apt: deb=influxdb_0.9.4.2_amd64.deb force=yes state=present
+#    - name: influx db - enable and start
+#      service: name=influxdb enabled=yes state=started
+#    - name: grafana - get deb
+#      get_url: url=https://grafanarel.s3.amazonaws.com/builds/grafana_2.1.3_amd64.deb dest=grafana_2.1.3_amd64.deb mode=0644
+#    - name: grafana - install
+#      apt: deb=grafana_2.1.3_amd64.deb force=yes state=present
+#    - name: grafana - enable and start
+#      service: name=grafana enabled=yes state=started
+#    - name: samba - install samba
+#      apt: name=samba state=latest
+#    - name: add linux user for samba
+#      user: name=smbuser
+#    - name: add sambauser
+#      shell: echo -e "smbuser\nsmbuser\n" | sudo pdbedit -a -t -u smbuser 
